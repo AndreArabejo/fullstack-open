@@ -1,25 +1,24 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-const History = (props) => {
-  console.log('props value is ', props)
-  if (props.allClicks.length === 0) {
-    return <div>The app is used by pressing the buttons</div>
-  }
-  return <div>Button press history: {props.allClicks.join(' ')}</div>
+const Button = (props) => {
+  return (
+    <button onClick={props.onClick}>
+      {props.text}
+    </button>
+  )
 }
 
-const Leader = ({left, right}) => {
-  //if equal
-  if (left === right) {
-    return <div>Tied</div>
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return <p>Press a button to start</p>
   }
-  //if left > right
-  if (left > right) {
-    return <div>Left is winning</div>
-  }
-  //if left < right
-  return <div>Right is winning</div>
-  
+
+  return (
+    <div>
+      {props.allClicks.join(' ')}
+    </div>
+  )
+
 }
 
 const App = () => {
@@ -28,24 +27,29 @@ const App = () => {
   const [allClicks, setAll] = useState([])
 
   const handleLeftClick = () => {
-    setAll(allClicks.concat('L'))
+    console.log('left value', left)
+    console.log('history', allClicks)
     setLeft(left + 1)
+    setAll(allClicks.concat('L'))
   }
+
   const handleRightClick = () => {
+    console.log('right value', right)
+    console.log('history', allClicks)
+    setRight(right + 1)
     setAll(allClicks.concat('R'))
-    setRight(right +1)
   }
 
   return (
     <div>
       {left}
-      <button onClick={handleLeftClick}>left</button>
-      <button onClick={handleRightClick}>right</button>
+      <Button onClick={handleLeftClick} text='left' />
+      <Button onClick={handleRightClick} text='right' />
       {right}
       <History allClicks={allClicks} />
-      <Leader left={left} right={right} />
       <p>Total: {left + right}</p>
     </div>
+
   )
 }
 
