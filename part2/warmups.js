@@ -10,3 +10,11 @@ const total = cart.reduce((sum, c) => {
 }, 0)
 
 console.log('total', total)
+
+const songs = [{ title: 'Blue Monday' }, { title: 'Bluebird' }, { title: 'Yellow' }]
+
+console.log(songs.some(s => s.title === 'Yellow'))
+console.log(songs.some(s => s.title === 'yellow'))
+
+const query = 'BLUE'
+console.log(songs.filter(s => s.title.toLowerCase().includes(query.toLowerCase())))
