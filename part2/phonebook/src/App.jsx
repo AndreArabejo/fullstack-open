@@ -15,27 +15,35 @@ const App = () => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      id: String(persons.length + 1),
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
+
+    //If name exists, return
+    if (persons.some(p => p.name === newName)) {
+      return alert(`${newName} is already added to phonebook`)
+    }
+
+    else {
+      setPersons(persons.concat(personObject))
+      setNewName('')
+    }
+    
   }
 
   console.log('Current people', persons)
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
+      <form  onSubmit={addPerson}>
         <div>
           name: <input value={newName} onChange={handlePersonChange}/>
         </div>
         <div>
-          <button type="submit" onClick={addPerson}>add</button>
+          <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person => <li key={person.id}>{person.name}</li>)}
+        {persons.map(person => <li key={person.name}>{person.name}</li>)}
       </ul>
     </div>
   )
